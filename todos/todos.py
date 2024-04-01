@@ -1,10 +1,12 @@
+import datetime
 from todo.todo import Todo
 from utils.helpers import command as cmd
 
 
 class Todos:
-    def __init__(self):
-        self.todos = []
+    def __init__(self, db):
+        self.db = db
+        self.todos = self.db.get_all_todos()
 
     def add(self):
         print("add new todo")
@@ -16,10 +18,17 @@ class Todos:
                     break
                 self.show_todos()
                 break
-            id = len(self.todos) + 1
-            new_todo = Todo(id, input_task, "incomplete")
-            self.todos.append(new_todo)
+            id = len(self.todos) + 1  # todo: get the last id from the db
+            new_todo = {
+                "id": id,
+                "task": input_task,
+                "status": 0,
+                "due_date": None,
+                "created_at": datetime.now(),
+            }
+            self.db.add_todo(new_todo)
 
+    # todo: connect these methods to the db
     def delete(self, todo):
         self.todos.remove(todo)
 

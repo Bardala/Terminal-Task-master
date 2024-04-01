@@ -1,10 +1,12 @@
 from todos.todos import Todos
 from utils.helpers import command as cmd
+from database.sql_data_store import SqlDataStore
 
 
 class main:
     def __init__(self):
-        self.todos = Todos()
+        self.db = SqlDataStore()
+        self.todos = Todos(self.db)
 
     def run(self):
         mode = cmd(input("\nbardala> "))
