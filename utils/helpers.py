@@ -1,16 +1,30 @@
-from colorama import Fore, Style
+from colorama import Fore, Style, init
+
+# Initialize colorama
+init(autoreset=True)
+
+# * Constants
+# Colors
+MAIN_COMMAND_COLOR = Fore.GREEN
+TODO_COMMAND_COLOR = Fore.BLUE
+INPUT_COLOR = Fore.CYAN
+TODO_ID_COLOR = Fore.MAGENTA
 
 
 def command(string):
     return string.strip().lower()
 
 
-def stdin():
-    print(Fore.YELLOW + "bardala> ", end="")
+def colored_input(
+    prompt,
+    prompt_color=Fore.GREEN,
+    input_color=Fore.BLACK,
+):
+    print(prompt_color + prompt, end="")
 
-    # Get the user input in cyan color
-    print(Fore.CYAN, end="")  # ?This statement doesn't work
     user_input = input()
 
-    print(Style.RESET_ALL, end="")
-    return user_input.strip()
+    # # Print the user input in the specified color
+    # print(input_color + user_input)
+
+    return command(user_input)

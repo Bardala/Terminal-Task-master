@@ -1,5 +1,5 @@
 from todos.todos import Todos
-from utils.helpers import command as cmd, stdin
+from utils.helpers import colored_input
 from database.sql_data_store import SqlDataStore
 from colorama import Fore, Back, Style, init
 
@@ -10,7 +10,7 @@ class main:
         self.todos = Todos(self.db)
 
     def run(self):
-        bardala = stdin()
+        bardala = colored_input("bardala> ")
 
         if bardala == "todo":
             self.todos.run_todo_mode()
