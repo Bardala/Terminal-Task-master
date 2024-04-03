@@ -16,14 +16,10 @@ class Todos:
     def add(self):
         print("add new todo")
         while True:
-            input_task = colored_input(
-                ">>> ", Fore.CYAN
-            )
+            input_task = colored_input(">>> ", Fore.CYAN)
             if input_task == "/":
                 if len(self.todos()) == 0:
-                    print(
-                        "You have no todos to add"
-                    )
+                    print("You have no todos to add")
                     return
                 self.show_todos()
                 return
@@ -42,9 +38,7 @@ class Todos:
         todo = self.db.get_todo_by_id(todo_id)
         if todo:
             self.db.delete_todo_by_id(todo_id)
-            print(
-                f"'{todo['task']}' has been deleted"
-            )
+            print(f"'{todo['task']}' has been deleted")
             return
         print("This todo_id doesn't exist")
 
@@ -53,12 +47,8 @@ class Todos:
         new_task = cmd(input("new task> "))
         todo = self.db.get_todo_by_id(todo_id)
         if not todo:
-            self.db.update_todo_by_id(
-                todo_id, new_task
-            )
-            print(
-                f"'{todo['task']}' has been updated to '{new_task}'"
-            )
+            self.db.update_todo_by_id(todo_id, new_task)
+            print(f"'{todo['task']}' has been updated to '{new_task}'")
             return
         print("This todo_id doesn't exist")
 
@@ -67,14 +57,8 @@ class Todos:
         todo = self.db.get_todo_by_id(todo_id)
         if todo:
             self.db.toggle_todo(todo_id)
-            status = (
-                "completed"
-                if not todo["status"]
-                else "incomplete"
-            )
-            print(
-                f"'{todo['task']}' is now {status}"
-            )
+            status = "completed" if not todo["status"] else "incomplete"
+            print(f"'{todo['task']}' is now {status}")
             return
         print("This todo_id doesn't exist")
 
@@ -91,9 +75,7 @@ class Todos:
             print("You have no todos")
             return
         for todo in self.todos():
-            print(
-                f"{todo['id']}. {todo['task']} - {todo['status']}"
-            )
+            print(f"{todo['id']}. {todo['task']} - {todo['status']}")
 
     def delete_all(self):
         if len(self.todos()) == 0:
@@ -111,15 +93,11 @@ class Todos:
         print("Enter 'show' to show all todos")
         print("Enter 'delete' to delete a todo")
         print("Enter 'update' to update a todo")
-        print(
-            "Enter delete_all to delete all todos"
-        )
+        print("Enter delete_all to delete all todos")
         print("Enter '/' to exit todo mode")
 
     def run_todo_mode(self):
-        command = colored_input(
-            "todo> ", TODO_COMMAND_COLOR
-        )
+        command = colored_input("todo> ", TODO_COMMAND_COLOR)
 
         if command == "add":
             self.add()
@@ -142,7 +120,5 @@ class Todos:
             print("\nGet out of todo mode")
             return
         else:
-            print(
-                "Invalid command, try entering 'add', 'toggle', 'show' or '/'"
-            )
+            print("Invalid command, try entering 'add', 'toggle', 'show' or '/'")
         self.run_todo_mode()
