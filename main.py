@@ -1,8 +1,7 @@
-from todos.todos import Todos
+from todos import Todos
 from utils.helpers import catch_errors_in_class, colored_input
 from database.sql_data_store import SqlDataStore
 from colorama import Fore, Back, Style, init
-
 from vsCodeProjectOpener import VSCodeProjectOpener
 
 
