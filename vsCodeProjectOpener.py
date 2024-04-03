@@ -60,7 +60,7 @@ class VSCodeProjectOpener:
                 return
             self.add_project(name, directory)
         elif cmd == "open":
-            cmd = colored_input("Enter project name: ")
+            name = colored_input("Enter project name: ")
             self.open_project(name)
         elif cmd == "list":
             self.list_projects()
