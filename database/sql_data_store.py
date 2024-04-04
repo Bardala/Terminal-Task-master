@@ -1,9 +1,12 @@
 import sqlite3
+import os
 
 
 class SqlDataStore:
     def __init__(self):
-        self.conn = sqlite3.connect("./data_store.db")
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        db_path = os.path.join(script_dir, "./data_store.db")
+        self.conn = sqlite3.connect(db_path)
         self.conn.row_factory = sqlite3.Row
         self.c = self.conn.cursor()
         self._create_table_todos()
