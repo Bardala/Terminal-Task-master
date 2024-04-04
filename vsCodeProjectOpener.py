@@ -1,6 +1,8 @@
 import subprocess
 import os
 
+from colorama import Fore
+
 from utils.helpers import PROJECT_COMMAND_COLOR, catch_errors, colored_input
 
 
@@ -53,16 +55,14 @@ class VSCodeProjectOpener:
         cmd = colored_input("project> ", PROJECT_COMMAND_COLOR)
         if cmd == "add":
             name = colored_input("Enter project name: ")
-            if name == "/":
-                return
-            directory = colored_input("Enter project directory: ")
-            if directory == "/":
-                return
-            self.add_project(name, directory)
+            print(Fore.GREEN + "Enter project dir: ", end="")
+            directory = input().strip()
+            if name != "/" and directory != "/":
+                self.add_project(name, directory)
         elif cmd == "open":
             name = colored_input("Enter project name: ")
             self.open_project(name)
-        elif cmd == "list":
+        elif cmd == "list" or cmd == "ls":
             self.list_projects()
         elif cmd == "delete":
             name = colored_input("Enter project name: ")

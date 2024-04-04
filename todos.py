@@ -97,26 +97,26 @@ class Todos:
         print("Enter '/' to exit todo mode")
 
     def run_todo_mode(self):
-        command = colored_input("todo> ", TODO_COMMAND_COLOR)
+        cmd = colored_input("todo> ", TODO_COMMAND_COLOR)
 
-        if command == "add":
+        if cmd == "add":
             self.add()
-        elif command == "toggle":
+        elif cmd == "toggle":
             self.toggle()
-        elif command == "show":
+        elif cmd == "show" or cmd == "list" or cmd == "ls":
             self.show_todos()
-        elif command == "delete":
+        elif cmd == "delete":
             self.delete()
-        elif command == "update":
+        elif cmd == "update":
             self.update()
-        elif command == "delete_all":
+        elif cmd == "delete_all":
             self.delete_all()
 
-        elif command == "help":
+        elif cmd == "help":
             self.help()
-        elif command == "":
+        elif cmd == "":
             pass
-        elif command == "/":
+        elif cmd == "/":
             print("\nGet out of todo mode")
             return
         else:

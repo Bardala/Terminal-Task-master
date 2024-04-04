@@ -20,7 +20,7 @@ class main:
         elif bardala == "project":
             self.vsCodeProjectOpener.run_project_mode()
         elif bardala == "/":
-            print(Fore.BLACK + "Goodbye")
+            print(Fore.LIGHTBLACK_EX + "Goodbye")
             self.db.close()
             return
         else:
