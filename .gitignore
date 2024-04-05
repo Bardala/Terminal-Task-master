@@ -1,6 +1,7 @@
 node_modules
 package-lock.json
 # Byte-compiled / optimized / DLL files
+data_store.db
 __pycache__/
 *.py[cod]
 *$py.class
