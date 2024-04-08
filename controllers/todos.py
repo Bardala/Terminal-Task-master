@@ -24,6 +24,7 @@ class Todos:
             "delete": self.delete,
             "update": self.update,
             "delete_all": self.delete_all,
+            "help": self.help,
         }
 
     def add(self):

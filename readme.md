@@ -1,157 +1,43 @@
-I want to create a project which run in command line and it will be a about my life styles, todos, my daily routines, my goals, my dreams, my plans, my ideas, my thoughts, my notes, my projects, my works, my hobbies, my interests, my skills, my experiences, my knowledge, my education, my career, my achievements, my failures, my problems, my solutions, my decisions, my mistakes, my lessons, my improvements, my changes, my challenges, my progress, my success, my happiness, my sadness, my emotions, my feelings, my relationships, my friends, my family, my relatives, my colleagues, my mentors, and I will use python.
+# Project Summary
 
-The project will run in cmd by typing `py filename.py`.
-Once I run the project, I can type any command which I have made to do something, ex:
+This project is a personal command-line tool developed in Python, designed to manage various aspects of the user's life. It includes features for managing todos, routines, algorithms, thought logging, problem solving, planning, algorithm searching, and instructions. The project utilizes technologies such as Python, Command Line Interface (CLI), Visual Studio Code, Git, and GitHub. The development plan spans 15 days, with each day dedicated to a specific feature or set of features, following Object-Oriented Programming (OOP) principles. The program can be initiated by typing "bardala" in the command line and offers different modes for performing actions like adding, viewing, deleting, and updating items.
 
-- when I type `todo`, it will show me my todos.
-- when I type `add_todo`, it will add a todo.
+## Key Features
 
-The program will have the ability to:
+- Todo Management: Add, view, delete, update, and mark todos as done.
+- Routine Management: Write routines for different situations (e.g., when feeling bored, facing a problem, etc.).
+- Algorithm Setting: Set algorithms for time management and handling tasks you don't enjoy.
+- Thought Logging: Write down your thoughts for future reference.
+- Problem Solving: Write down ways you've solved specific problems.
+- Planning: Write down your future plans.
+- Algorithm Searching: Search for algorithms to solve current problems.
+- Instructions: Write commands to show the program's instructions.
 
-- notify me.
-- open other programs.
-- set alarms.
-- open projects in vscode.
-- open websites.
-  It will have a lot of permissions to do things in my computer.
-
-# User Stories:
-
-- As a user, I want to add a todo.
-- As a user, I want to see my todos.
-- As a user, I want to delete a todo.
-- As a user, I want to update a todo.
-- As a user, I want to make a todo as done.
-- As a user, I can write a routine to do when feeling boring, bad, not self-controlled...
-- As a user, I can write a routine to do when I face a problem in coding, in life, in work, in study...
-- As a user, I can write a routine to do when I face a problem in relationship, in family, in friends, in colleagues...
-- As a user, I can write a routine to do when I face a problem in health, in mental, in physical, in emotional...
-- As a user, I can set algorithms about how to manage my time.
-- As a user, I can set algorithms about how to manage something I don't love to do.
-- As a user, I can write my thoughts to benefit myself in the future.
-- As a user, I can write ways which I use to solve a specific problem.
-- As a user, I can write my plans to do in the future.
-- As a user, I can search about algorithms to solve a specific current problem.
-- As a user, I can write command to show me the instructions of the program.
-
-# Features:
-
-- Add a todo.
-- Write a routine.
-- Set algorithms.
-- Write thoughts.
-- Write ways to solve a problem.
-- Write plans.
-- Search algorithms.
-- Show instructions.
-
-# Technologies:
+## Technologies Used
 
 - Python
-- cmd
-- vscode
-- git
-- github
+- Command Line Interface (CLI)
+- Visual Studio Code
+- Git
+- GitHub
 
-# Plan:
+## Development Plan
 
-- Day 1: Create a project structure.
-  - Create a main file.
-  - Create a todo file.
-  - Create a routine file.
-  - Create an algorithm file.
-  - Create a thought file.
-  - Create a way to solve a problem file.
-  - Create a plan file.
-  - Create a search algorithm file.
-- Day 2: Create a todo feature.
-- Day 3: Create a routine feature.
-- Day 4: Create an algorithm feature.
-- Day 5: Create a thought feature.
-- Day 6: Create a way to solve a problem feature.
-- Day 7: Create a plan feature.
-- Day 8: Create a search algorithm feature.
-- Day 9: Create a notification feature.
-- Day 10: Create an open program feature.
-- Day 11: Create an alarm feature.
-- Day 12: Create an open vscode project feature.
-- Day 13: Create an open website feature.
-- Day 14: Create a permission feature.
-- Day 15: Create a user interface feature.
+The development process is planned over 15 days, with each day dedicated to a specific feature or set of features. The project will be developed using Object-Oriented Programming (OOP).
 
-I will use OOP to create this project.
+## Demo
 
-# demo:
+## Demo
 
-## The program will start like this:
+![Photo](./docs/screenshots/image.png)
 
-```sh
-> bardala
-```
 
-## To Enter to do mode, you should write `> todo`:
+The demo provides a practical walkthrough of the command-line tool's functionality. The tool is designed to manage various aspects of a user's life, including projects and todos.
 
-```sh
-bardala> todo
-```
+In the demo, the user navigates between different modes, such as project mode and todo mode, by entering simple commands. In each mode, the user can perform various actions like adding, listing, and updating items.
 
-## then the program will show you the todos in a table if exist, and will start the todo mode:
+The tool also provides a help command in each mode, which displays a list of all available commands, making it user-friendly and easy to navigate.
 
-```sh
-todo>
-```
+Moreover, the tool is designed to handle invalid commands gracefully, guiding the user to use the help command to get a list of valid commands.
 
-## To add a todo, you should write `todo> add`, then the program will start a new line to write the todo:
-
-```sh
-todo> add
-add new todo
->>> todo1
->>> todo2
->>> todo3
->>> done
-```
-
-## When I finish writing the todos, the program will show me the todos in a table:
-
-| id  | todo  | status | created                  |
-| --- | ----- | ------ | ------------------------ |
-| 1   | todo1 | done   | 2021-09-01 > 09:00:00 PM |
-| 2   | todo2 | todo   | 2021-09-01 > 09:01:05 PM |
-| 3   | todo3 | done   | 2021-09-01 > 09:02:10 PM |
-
-```sh
-todo>
-```
-
-## When I write `>show` the program will show me the todos in a table:
-
-```sh
-todo> show
-```
-
-| id  | todo  | status | created                  |
-| --- | ----- | ------ | ------------------------ |
-| 1   | todo1 | done   | 2021-09-01 > 09:00:00 PM |
-| 2   | todo2 | todo   | 2021-09-01 > 09:01:05 PM |
-| 3   | todo3 | done   | 2021-09-01 > 09:02:10 PM |
-
----
-
-## To delete todo you should write `> delete id`:
-
-```sh
-todo> deleteTodo 1
-```
-
-## To update todo you should write `> update id`, then the program will start a new line to write the new todo:
-
-```sh
-todo> update 2
-```
-
-## To make a todo as done you should write `> done id`:
-
-```sh
-todo> done 2
-```
+In summary, this tool serves as a comprehensive personal management system, offering a simple and intuitive command-line interface for managing projects and todos. It's a handy tool for anyone looking to organize their tasks and projects efficiently.

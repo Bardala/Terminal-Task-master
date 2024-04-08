@@ -1,8 +1,9 @@
-from todos import Todos
 from utils.helpers import catch_errors_in_class, class_runner, helper
 from database.sql_data_store import SqlDataStore
 from colorama import Fore, init
-from vsCodeProjectOpener import VSCodeProjectOpener
+from database.sql_data_store import SqlDataStore
+from controllers.todos import Todos
+from controllers.vsCodeProjectOpener import VSCodeProjectOpener
 
 
 @catch_errors_in_class

@@ -25,6 +25,7 @@ class VSCodeProjectOpener:
             "show": self.list_projects,
             "delete": self.delete_project,
             "update": self.update_project_dir,
+            "help": self.help,
         }
 
     def help(self):

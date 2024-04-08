@@ -1,5 +1,6 @@
 node_modules
 package-lock.json
+learn
 # Byte-compiled / optimized / DLL files
 data_store.db
 __pycache__/
