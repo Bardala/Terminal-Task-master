@@ -16,6 +16,7 @@ from utils.helpers import (
 class VSCodeProjectOpener:
     def __init__(self, db):
         self.db = db
+        self.cmd_name = "project> "
         self.command_dict = {
             "add": self.add_project,
             "open": self.open_project,
@@ -75,4 +76,4 @@ class VSCodeProjectOpener:
 
     @catch_errors
     def run_project_mode(self):
-        class_runner("project> ", self.command_dict, PROJECT_COMMAND_COLOR)
+        class_runner(self.cmd_name, self.command_dict, PROJECT_COMMAND_COLOR)

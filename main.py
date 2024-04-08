@@ -8,6 +8,7 @@ from vsCodeProjectOpener import VSCodeProjectOpener
 @catch_errors_in_class
 class main:
     def __init__(self):
+        self.cmd_name = "bardala> "
         self.db = SqlDataStore()
         self.todos = Todos(self.db)
         self.vsCodeProjectOpener = VSCodeProjectOpener(self.db)
@@ -21,7 +22,7 @@ class main:
         helper(self.command_dict)
 
     def run(self):
-        class_runner("bardala> ", self.command_dict, Fore.GREEN, self.db)
+        class_runner(self.cmd_name, self.command_dict, Fore.GREEN, self.db)
 
 
 if __name__ == "__main__":

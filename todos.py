@@ -14,6 +14,7 @@ from utils.helpers import (
 class Todos:
     def __init__(self, db):
         self.db = db
+        self.cmd_name = "todo> "
         self.command_dict = {
             "add": self.add,
             "toggle": self.toggle,
@@ -103,4 +104,4 @@ class Todos:
         helper(self.command_dict)
 
     def run_todo_mode(self):
-        class_runner("todo> ", self.command_dict, TODO_COMMAND_COLOR)
+        class_runner(self.cmd_name, self.command_dict, TODO_COMMAND_COLOR)
