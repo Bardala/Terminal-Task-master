@@ -37,10 +37,6 @@ The program will have the ability to:
 # Features:
 
 - Add a todo.
-- Show todos.
-- Delete a todo.
-- Update a todo.
-- Make a todo as done.
 - Write a routine.
 - Set algorithms.
 - Write thoughts.
