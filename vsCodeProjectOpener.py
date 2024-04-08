@@ -5,7 +5,9 @@ from utils.helpers import (
     PROJECT_COMMAND_COLOR,
     catch_errors,
     catch_errors_in_class,
+    class_runner,
     colored_input,
+    helper,
 )
 
 
@@ -24,15 +26,17 @@ class VSCodeProjectOpener:
             "update": self.update_project_dir,
         }
 
+    def help(self):
+        helper(self.command_dict)
+
     def add_project(self):
         name = colored_input("Enter project name: ")
         print(Fore.GREEN + "Enter project dir: ", end="")
         directory = input().strip()
-        if name != "/" and directory != "/":
-            self.add_project(name, directory)
         if not os.path.exists(directory):
             raise ValueError(f"No such directory: {directory}")
-        self.db.add_project(name, directory)
+        if name != "/" and directory != "/":
+            self.db.add_project(name, directory)
 
     def open_project(self):
         name = colored_input("Enter project name: ")
@@ -65,25 +69,10 @@ class VSCodeProjectOpener:
         for project in projects:
             print(f"{project[1]}: {project[2]}")
 
-    def delete_project(self, name):
+    def delete_project(self):
         name = colored_input("Enter project name: ")
         self.db.delete_project_by_name(name) if self._check_is_project(name) else None
 
     @catch_errors
     def run_project_mode(self):
-        cmd = colored_input("project> ", PROJECT_COMMAND_COLOR)
-        # todo: if cmd is a substring of a command, it will still run that command
-
-        for command in self.command_dict:
-            if command in cmd:
-                self.command_dict[command]()
-                break
-        else:  # This else block runs when the for loop doesn't break
-            if cmd == "/":
-                return
-            else:
-                print(Fore.RED + "Invalid command", end="")
-                print(
-                    Fore.BLUE + "Commands: add, open, list, delete, update, /", end="\n"
-                )
-        self.run_project_mode()
+        class_runner("project> ", self.command_dict, PROJECT_COMMAND_COLOR)

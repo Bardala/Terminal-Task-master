@@ -1,7 +1,7 @@
 from todos import Todos
-from utils.helpers import catch_errors_in_class, colored_input
+from utils.helpers import catch_errors_in_class, class_runner, helper
 from database.sql_data_store import SqlDataStore
-from colorama import Fore, Back, Style, init
+from colorama import Fore, init
 from vsCodeProjectOpener import VSCodeProjectOpener
 
 
@@ -11,21 +11,17 @@ class main:
         self.db = SqlDataStore()
         self.todos = Todos(self.db)
         self.vsCodeProjectOpener = VSCodeProjectOpener(self.db)
+        self.command_dict = {
+            "todo": self.todos.run_todo_mode,
+            "project": self.vsCodeProjectOpener.run_project_mode,
+            "help": self.help,
+        }
+
+    def help(self):
+        helper(self.command_dict)
 
     def run(self):
-        bardala = colored_input("bardala> ")
-
-        if bardala == "todo":
-            self.todos.run_todo_mode()
-        elif bardala == "project":
-            self.vsCodeProjectOpener.run_project_mode()
-        elif bardala == "/":
-            print(Fore.LIGHTBLACK_EX + "Goodbye")
-            self.db.close()
-            return
-        else:
-            print(Fore.RED + "Invalid command")
-        self.run()
+        class_runner("bardala> ", self.command_dict, Fore.GREEN, self.db)
 
 
 if __name__ == "__main__":

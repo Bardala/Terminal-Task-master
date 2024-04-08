@@ -22,6 +22,37 @@ def colored_input(prompt, prompt_color=Fore.GREEN, input_color=Fore.CYAN):
     return command(user_input)
 
 
+def class_runner(cmd_msg, command_dict, cmd_color=Fore.GREEN, db=None):
+    cmd = colored_input(cmd_msg, cmd_color)
+    for command in command_dict:
+        if command.startswith(cmd):
+            if command == cmd:
+                command_dict[command]()
+                break
+            print(Fore.LIGHTBLACK_EX + command)
+            command_dict[command]()
+            break
+    else:
+        if cmd == "/":
+            if cmd_msg == "bardala> ":  # main class
+                print(Fore.LIGHTBLACK_EX + "Goodbye")
+                db.close()
+            return
+        elif cmd == "":
+            pass
+        else:
+            print(Fore.RED + "Invalid command")
+            print("'help' for list of commands")
+    class_runner(cmd_msg, command_dict, cmd_color, db)
+
+
+def helper(command_dict):
+    print("Available commands:")
+    for command in command_dict:
+        print(command)
+
+
+# Todo: Move these functions to a separate file called error_handlers.py
 def catch_errors(func):
     def wrapper(*args, **kwargs):
         try:

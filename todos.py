@@ -4,14 +4,26 @@ from colorama import Fore
 from utils.helpers import (
     TODO_COMMAND_COLOR,
     TODO_ID_COLOR,
+    class_runner,
     colored_input,
     command as cmd,
+    helper,
 )
 
 
 class Todos:
     def __init__(self, db):
         self.db = db
+        self.command_dict = {
+            "add": self.add,
+            "toggle": self.toggle,
+            "show": self.show_todos,
+            "list": self.show_todos,
+            "ls": self.show_todos,
+            "delete": self.delete,
+            "update": self.update,
+            "delete_all": self.delete_all,
+        }
 
     def add(self):
         print("add new todo")
@@ -88,37 +100,7 @@ class Todos:
         return self.db.get_all_todos()
 
     def help(self):
-        print("Enter 'add' to add a new todo")
-        print("Enter 'toggle' to toggle a todo")
-        print("Enter 'show' to show all todos")
-        print("Enter 'delete' to delete a todo")
-        print("Enter 'update' to update a todo")
-        print("Enter delete_all to delete all todos")
-        print("Enter '/' to exit todo mode")
+        helper(self.command_dict)
 
     def run_todo_mode(self):
-        cmd = colored_input("todo> ", TODO_COMMAND_COLOR)
-
-        if cmd == "add":
-            self.add()
-        elif cmd == "toggle":
-            self.toggle()
-        elif cmd == "show" or cmd == "list" or cmd == "ls":
-            self.show_todos()
-        elif cmd == "delete":
-            self.delete()
-        elif cmd == "update":
-            self.update()
-        elif cmd == "delete_all":
-            self.delete_all()
-
-        elif cmd == "help":
-            self.help()
-        elif cmd == "":
-            pass
-        elif cmd == "/":
-            print("\nGet out of todo mode")
-            return
-        else:
-            print("Invalid command, try entering 'add', 'toggle', 'show' or '/'")
-        self.run_todo_mode()
+        class_runner("todo> ", self.command_dict, TODO_COMMAND_COLOR)
