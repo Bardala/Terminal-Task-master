@@ -1,4 +1,3 @@
-import inspect
 from colorama import Fore, Style, init
 
 # Initialize colorama
@@ -23,6 +22,7 @@ def colored_input(prompt, prompt_color=Fore.GREEN, input_color=Fore.CYAN):
 
 
 def class_runner(cmd_msg, command_dict, cmd_color=Fore.GREEN, db=None):
+    """Runs the command given by the user."""
     cmd = colored_input(cmd_msg, cmd_color)
     for command in command_dict:
         if command.startswith(cmd):
@@ -47,29 +47,7 @@ def class_runner(cmd_msg, command_dict, cmd_color=Fore.GREEN, db=None):
 
 
 def helper(command_dict):
+    """Prints the available commands for the current mode."""
     print("Available commands:")
     for command in command_dict:
         print(command)
-
-
-# Todo: Move these functions to a separate file called error_handlers.py
-def catch_errors(func):
-    def wrapper(*args, **kwargs):
-        try:
-            return func(*args, **kwargs)
-        except Exception as e:
-            if e == KeyboardInterrupt:
-                print("\nGoodbye")
-                exit()
-            if str(e).startswith("UNIQUE constraint"):
-                print(Fore.RED + "This value already exists")
-            else:
-                print(f"An error occurred: {e}")
-
-    return wrapper
-
-
-def catch_errors_in_class(cls):
-    for name, method in inspect.getmembers(cls, inspect.isfunction):
-        setattr(cls, name, catch_errors(method))
-    return cls

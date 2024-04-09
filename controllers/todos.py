@@ -1,16 +1,11 @@
 from datetime import datetime
-
 from colorama import Fore
-from utils.helpers import (
-    TODO_COMMAND_COLOR,
-    TODO_ID_COLOR,
-    class_runner,
-    colored_input,
-    command as cmd,
-    helper,
-)
+
+from utils.error_handler import *
+from utils.helpers import *
 
 
+@catch_errors_in_class
 class Todos:
     def __init__(self, db):
         self.db = db
@@ -27,15 +22,16 @@ class Todos:
             "help": self.help,
         }
 
+    def _check_backslash(self, input_task):
+        if input_task == "/":
+            return True
+        return False
+
     def add(self):
         print("add new todo")
         while True:
             input_task = colored_input(">>> ", Fore.CYAN)
-            if input_task == "/":
-                if len(self.todos()) == 0:
-                    print("You have no todos to add")
-                    return
-                self.show_todos()
+            if self._check_backslash(input_task):
                 return
             id = self.db.get_last_todo_id() + 1
             new_todo = {
@@ -49,6 +45,8 @@ class Todos:
 
     def delete(self):
         todo_id = self._todo_id()
+        if self._check_backslash(todo_id):
+            return
         todo = self.db.get_todo_by_id(todo_id)
         if todo:
             self.db.delete_todo_by_id(todo_id)
@@ -58,7 +56,9 @@ class Todos:
 
     def update(self):
         todo_id = self._todo_id()
-        new_task = cmd(input("new task> "))
+        if self._check_backslash(todo_id):
+            return
+        new_task = command(input("new task> "))
         todo = self.db.get_todo_by_id(todo_id)
         if not todo:
             self.db.update_todo_by_id(todo_id, new_task)
@@ -68,6 +68,8 @@ class Todos:
 
     def toggle(self):
         todo_id = self._todo_id()
+        if self._check_backslash(todo_id):
+            return
         todo = self.db.get_todo_by_id(todo_id)
         if todo:
             self.db.toggle_todo(todo_id)
@@ -77,6 +79,7 @@ class Todos:
         print("This todo_id doesn't exist")
 
     def _todo_id(self):
+        """Helper function to get todo_id from user input"""
         return int(
             colored_input(
                 "todo_id> ",
@@ -95,14 +98,19 @@ class Todos:
         if len(self.todos()) == 0:
             print("You have no todos to delete")
             return
+        submit = input("Are you sure you want to delete all todos? (y/n) ")
+        if submit.lower() != "y":
+            return
         self.db.delete_all_todos()
         print("All todos have been deleted")
 
     def todos(self):
+        """Get all todos from the database"""
         return self.db.get_all_todos()
 
     def help(self):
         helper(self.command_dict)
 
+    @catch_errors
     def run_todo_mode(self):
         class_runner(self.cmd_name, self.command_dict, TODO_COMMAND_COLOR)

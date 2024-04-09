@@ -1,14 +1,8 @@
 import subprocess
 import os
 from colorama import Fore
-from utils.helpers import (
-    PROJECT_COMMAND_COLOR,
-    catch_errors,
-    catch_errors_in_class,
-    class_runner,
-    colored_input,
-    helper,
-)
+from utils.error_handler import *
+from utils.helpers import *
 
 
 # Todo: Switch this class to deal with all directories, not just VSCode

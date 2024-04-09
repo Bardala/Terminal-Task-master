@@ -1,4 +1,5 @@
-from utils.helpers import catch_errors_in_class, class_runner, helper
+from utils.error_handler import *
+from utils.helpers import class_runner, helper
 from database.sql_data_store import SqlDataStore
 from colorama import Fore, init
 from database.sql_data_store import SqlDataStore
