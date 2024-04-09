@@ -9,32 +9,19 @@ class SqlDataStore:
         self.conn = sqlite3.connect(db_path)
         self.conn.row_factory = sqlite3.Row
         self.c = self.conn.cursor()
-        self._create_table_todos()
-        self.create_table_projects()
+        self._migrate()
 
-    def _create_table_todos(self):
-        table_todos = """
-            CREATE TABLE IF NOT EXISTS todos (
-            id INTEGER PRIMARY KEY,
-            task TEXT NOT NULL,
-            due_date TEXT,
-            status BOOLEAN NOT NULL,
-            created_at TEXT
-            )            
-        """
-        self.c.execute(table_todos)
-        self.conn.commit()
-
-    def create_table_projects(self):
-        table_projects = """
-            CREATE TABLE IF NOT EXISTS projects (
-            id INTEGER PRIMARY KEY,
-            name TEXT NOT NULL UNIQUE,
-            directory TEXT NOT NULL UNIQUE
-            )            
-        """
-        self.c.execute(table_projects)
-        self.conn.commit()
+    def _migrate(self):
+        """Run all the migration sql files in the migrations directory."""
+        migration_dir = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "migrations"
+        )
+        for filename in os.listdir(migration_dir):
+            if filename.endswith(".sql"):
+                with open(os.path.join(migration_dir, filename), "r") as f:
+                    sql_command = f.read()
+                self.c.execute(sql_command)
+                self.conn.commit()
 
     def add_project(self, name, directory):
         sql = "INSERT INTO projects (name, directory) VALUES (?, ?)"

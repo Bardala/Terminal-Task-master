@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS issues (
+  id INTEGER PRIMARY KEY,
+  issue TEXT NOT NULL,
+  created_at TEXT
+);

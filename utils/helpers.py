@@ -12,10 +12,12 @@ TODO_ID_COLOR = Fore.MAGENTA
 
 
 def command(string):
+    """Returns the string in lowercase and stripped."""
     return string.strip().lower()
 
 
 def colored_input(prompt, prompt_color=Fore.GREEN, input_color=Fore.CYAN):
+    """Prints the prompt and returns the user input."""
     print(prompt_color + prompt, end="")
     user_input = input()
     return command(user_input)
