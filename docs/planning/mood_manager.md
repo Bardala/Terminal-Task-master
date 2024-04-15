@@ -4,22 +4,35 @@ ex: Watch philosophical videos, read a book when you feel bored. -> it will be n
 And the program should know that the above routine is related to "Boredom", so it can collect all helpful routines for this issue.
 
  ex:
-
  ```
- bardala> conversation
+ bardala> mode_manager
+ >> Add
+ >>> What's the routine?
+ >> Watch philosophical videos.
+ >>> What's the issue?
+ >> Boredom
+ >>> Done. ---it should be in a green color.
+ >> /
+ get out the mode_manager.
+ bardala>
+```
+
+ ex:
+ ```
+ bardala> mode_manager
  >> I want to study, but I'm feeling lazy.
  >>> Oh, I think you should first get out of your phone, Then, you can start with a small task.
  >> Give me another suggestion.
  >>> Try to explore the topic you want to study, try to search for it on the internet.
  >> /
- get out the conversation.
+ get out the mode_manager.
  bardala>
 ```
 
  ex:
 
  ```
- bardala> conversation
+ bardala> mode_manager
  >> I'm feeling anxious.
  >>> Take a deep breath, and try to focus on your breath.
  >> Give me another suggestion.
@@ -27,23 +40,10 @@ And the program should know that the above routine is related to "Boredom", so i
 ```
 
 
- ex:
- ```
- bardala> conversation
- >> Add this routine to the "Nice to have" routines.
- >>> What's the routine?
- >> When you feel bored, watch philosophical videos.
- >>> What's the issue?
- >> Boredom
- >>> Done. ---it should be in a green color.
- >> /
- get out the conversation.
- bardala>
-```
 
  ex:
  ```
- bardala> conversation
+ bardala> mode_manager
  >> Add this routine.
  >>> What's the routine?
  >> When you feel bored, watch philosophical videos.
@@ -54,7 +54,7 @@ And the program should know that the above routine is related to "Boredom", so i
 
  ex:
  ```
- bardala> conversation
+ bardala> mode_manager
  >> I'm feeling bored.
  >>> Watch philosophical videos.
  >> Suggest me another routine.
@@ -62,13 +62,13 @@ And the program should know that the above routine is related to "Boredom", so i
  >> thank you.
  >>> You're welcome.
  >> /
- get out the conversation.
+ get out the mode_manager.
  bardala>
 ```
 
 ex:
 ```
-bardala> conversation
+bardala> mode_manager
 >> Add this routine.
 >>> What's the routine?
 >> When you feel bored, watch philosophical videos.

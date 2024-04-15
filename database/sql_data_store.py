@@ -1,7 +1,9 @@
+from datetime import datetime
 import sqlite3
 import os
 
 
+# Todo: create a mock_db for testing
 class SqlDataStore:
     def __init__(self):
         script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -46,10 +48,6 @@ class SqlDataStore:
     def update_project_by_name(self, name, new_directory):
         sql = "UPDATE projects SET directory=? WHERE name=?"
         self.c.execute(sql, (new_directory, name))
-        self.conn.commit()
-
-    def _drop_table_todos(self):
-        self.c.execute("DROP TABLE IF EXISTS todos")
         self.conn.commit()
 
     def add_todo(self, todo):
@@ -100,6 +98,38 @@ class SqlDataStore:
     def delete_all_todos(self):
         self.c.execute("DELETE FROM todos")
         self.conn.commit()
+
+    def add_issue(self, issue):
+        created_at = datetime.now()
+        sql = "INSERT INTO issues (issue, created_at) VALUES (?, ?)"
+        self.c.execute(sql, (issue, created_at))
+        self.conn.commit()
+
+    def get_issue_by_name(self, issue_name):
+        self.c.execute("SELECT * FROM issues WHERE issue=?", (issue_name,))
+        return self.c.fetchone()
+
+    def get_issues(self):
+        self.c.execute("SELECT * FROM issues")
+        return self.c.fetchall()
+
+    def update_issue(self, id, new_issue):
+        sql = "UPDATE issues SET issue=? WHERE id=?"
+        self.c.execute(sql, (new_issue, id))
+        self.conn.commit()
+
+    def delete_issue(self, id):
+        self.c.execute("DELETE FROM issues WHERE id=?", (id,))
+        self.conn.commit()
+
+    def add_issue_routine(self, issue_routine):
+        sql = "INSERT INTO routines (issue_id, routine) VALUES (?, ?)"
+        self.c.execute(sql, (issue_routine["issue_id"], issue_routine["routine"]))
+        self.conn.commit()
+
+    def get_issue_routines(self, issue_id):
+        self.c.execute("SELECT * FROM routines WHERE issue_id=?", (issue_id,))
+        return self.c.fetchall()
 
     def close(self):
         self.conn.close()

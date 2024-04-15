@@ -3,6 +3,8 @@ import inspect
 
 
 def catch_errors(func):
+    """Function error handler"""
+
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)

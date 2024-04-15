@@ -16,7 +16,6 @@
 | status      | BOOLEAN   | Not null    |
 | created_at  | TEXT      |             |
 
----
 
 ## Table: projects
 
@@ -26,7 +25,6 @@
 | name        | TEXT      | Not null, unique |
 | directory   | TEXT      | Not null, unique |
 
----
 
 ## Table: issues
 
@@ -36,7 +34,6 @@
 | issue       | TEXT      | Not null    |
 | created_at  | TEXT      |             |
 
----
 
 ## Table: routines
 

@@ -1,3 +1,4 @@
+from os import system
 from colorama import Fore, Style, init
 
 # Initialize colorama
@@ -53,3 +54,14 @@ def helper(command_dict):
     print("Available commands:")
     for command in command_dict:
         print(command)
+
+
+def check_backslash(input_task):
+    if input_task == "/":
+        return True
+    elif input_task == "":
+        print(Fore.RED + "Task cannot be empty")
+        return True
+    elif input_task == "//":
+        system.exit()
+    return False

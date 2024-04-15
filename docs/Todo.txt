@@ -1,0 +1,5 @@
+* Create a fram work to your missions, so when you have a problem you should return to your frame work to know how to deal with it, or if you have the same issue shows up reapeatedly you should craete its solution framework,example:
+ - You have tried to create a desktop application using Electron.js and React.js, but you faced a problem with using react-router-dom library with Electron, so if you get your frame work to know how to deal with this problem the framewrok should tell you for example: "ignore using routing here and first look what you need in your project, and when you already need it try to get a solution for it or an alternative".
+
+* So the first problem which your desktop-app will solve it is to try to create a framework to your missions and your problem solving.
+* The second is to add to it your observations and your notices.
