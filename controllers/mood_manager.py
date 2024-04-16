@@ -26,7 +26,7 @@ class MyModeManager(BaseController):
         print(">>> What is the issue?")
         issue_name: str = colored_input(">>")
         issue: dict[str, any] = {}
-        if check_backslash(issue_name):
+        if check_user_input(issue_name):
             return
 
         stored_issues: list[dict[str, any]] = self.get_issues()
@@ -37,7 +37,7 @@ class MyModeManager(BaseController):
 
         print(">>> What is the routine?")
         routine: str = colored_input(">>")
-        if check_backslash(routine):
+        if check_user_input(routine):
             return
 
         if "id" not in issue:
@@ -56,7 +56,7 @@ class MyModeManager(BaseController):
         for issue in issues:
             print(f"{issue['id']}. {issue['issue']}")
         mood: str = colored_input(">>")
-        if check_backslash(mood):
+        if check_user_input(mood):
             return
         for issue in issues:
             if mood == issue["issue"]:

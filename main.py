@@ -1,9 +1,8 @@
 from controllers.base_controller import BaseController
 from utils.error_handler import *
-from utils.helpers import class_runner, helper
+from utils.helpers import Goodbye, class_runner, helper
 from database.sql_data_store import SqlDataStore
 from colorama import Fore, init
-from database.sql_data_store import SqlDataStore
 from controllers.todos import Todos
 from controllers.vsCodeProjectOpener import VSCodeProjectOpener
 from controllers.mood_manager import MyModeManager
@@ -36,3 +35,5 @@ if __name__ == "__main__":
     db = SqlDataStore()
     main = main("bardala> ", db)
     main.run()
+    Goodbye()
+    db.close()

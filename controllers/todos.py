@@ -23,16 +23,11 @@ class Todos(BaseController):
             "help": self.help,
         }
 
-    def _check_backslash(self, input_task: str) -> bool:
-        if input_task == "/":
-            return True
-        return False
-
     def add(self) -> None:
         print("add new todo")
         while True:
             input_task = colored_input(">>> ", Fore.CYAN)
-            if self._check_backslash(input_task):
+            if check_user_input(input_task):
                 return
             id = self.db.get_last_todo_id() + 1
             new_todo = {
@@ -46,7 +41,7 @@ class Todos(BaseController):
 
     def delete(self) -> None:
         todo_id = self._todo_id()
-        if self._check_backslash(todo_id):
+        if check_user_input(todo_id):
             return
         todo = self.db.get_todo_by_id(todo_id)
         if todo:
@@ -57,7 +52,7 @@ class Todos(BaseController):
 
     def update(self) -> None:
         todo_id = self._todo_id()
-        if self._check_backslash(todo_id):
+        if check_user_input(todo_id):
             return
         new_task = command(input("new task> "))
         todo = self.db.get_todo_by_id(todo_id)
@@ -69,7 +64,7 @@ class Todos(BaseController):
 
     def toggle(self) -> None:
         todo_id = self._todo_id()
-        if self._check_backslash(todo_id):
+        if check_user_input(todo_id):
             return
         todo = self.db.get_todo_by_id(todo_id)
         if todo:

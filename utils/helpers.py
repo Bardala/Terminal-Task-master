@@ -1,4 +1,4 @@
-from os import system
+import sys
 from colorama import Fore, init
 
 
@@ -17,6 +17,10 @@ TODO_ID_COLOR: str = Fore.MAGENTA
 def command(string: str) -> str:
     """Returns the string in lowercase and stripped."""
     return string.strip().lower()
+
+
+def Goodbye():
+    print(Fore.LIGHTBLACK_EX + "Goodbye")
 
 
 def colored_input(prompt: str, prompt_color: str = Fore.GREEN, input_color: str = Fore.CYAN) -> str:
@@ -38,13 +42,10 @@ def class_runner(cmd_msg: str, command_dict: dict, cmd_color: str = Fore.GREEN, 
             command_dict[command]()
             break
     else:
-        if cmd == "/":
-            if cmd_msg == "bardala> ":  # main class
-                print(Fore.LIGHTBLACK_EX + "Goodbye")
-                db.close()
-            return
-        elif cmd == "":
+        if cmd == "":
             pass
+        elif check_user_input(cmd):
+            return
         else:
             print(Fore.RED + "Invalid command")
             print("'help' for list of commands")
@@ -58,12 +59,13 @@ def helper(command_dict: dict) -> None:
         print(command)
 
 
-def check_backslash(input_task: str) -> bool:
+def check_user_input(input_task: str) -> bool:
     if input_task == "/":
         return True
     elif input_task == "":
         print(Fore.RED + "Task cannot be empty")
         return True
     elif input_task == "//":
-        system.exit()
+        Goodbye()
+        sys.exit(0)
     return False
