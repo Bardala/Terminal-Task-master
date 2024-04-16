@@ -11,22 +11,23 @@ from controllers.mood_manager import MyModeManager
 @catch_errors_in_class
 class main:
     def __init__(self):
-        self.cmd_name = "bardala> "
-        self.db = SqlDataStore()
-        self.todos = Todos(self.db)
-        self.mood = MyModeManager(self.db)
-        self.vsCodeProjectOpener = VSCodeProjectOpener(self.db)
-        self.command_dict = {
+        self.cmd_name: str = "bardala> "
+        self.db: SqlDataStore = SqlDataStore()
+        self.todos: Todos = Todos(self.db)
+        self.mood: MyModeManager = MyModeManager(self.db)
+        self.vsCodeProjectOpener: VSCodeProjectOpener = VSCodeProjectOpener(self.db)
+        self.command_dict: dict[str, callable] = {
             "todo": self.todos.run_todo_mode,
             "project": self.vsCodeProjectOpener.run_project_mode,
             "mood": self.mood.run_mood_mode,
             "help": self.help,
         }
 
-    def help(self):
+    def help(self) -> None:
         helper(self.command_dict)
 
-    def run(self):
+    @catch_errors
+    def run(self) -> None:
         class_runner(self.cmd_name, self.command_dict, Fore.GREEN, self.db)
 
 

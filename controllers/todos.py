@@ -1,13 +1,14 @@
 from datetime import datetime
+from typing import List, Dict, Union
 from colorama import Fore
-
+from database.sql_data_store import SqlDataStore
 from utils.error_handler import *
 from utils.helpers import *
 
 
 @catch_errors_in_class
 class Todos:
-    def __init__(self, db):
+    def __init__(self, db: SqlDataStore):
         self.db = db
         self.cmd_name = "todo> "
         self.command_dict = {
@@ -22,12 +23,12 @@ class Todos:
             "help": self.help,
         }
 
-    def _check_backslash(self, input_task):
+    def _check_backslash(self, input_task: str) -> bool:
         if input_task == "/":
             return True
         return False
 
-    def add(self):
+    def add(self) -> None:
         print("add new todo")
         while True:
             input_task = colored_input(">>> ", Fore.CYAN)
@@ -43,7 +44,7 @@ class Todos:
             }
             self.db.add_todo(new_todo)
 
-    def delete(self):
+    def delete(self) -> None:
         todo_id = self._todo_id()
         if self._check_backslash(todo_id):
             return
@@ -54,7 +55,7 @@ class Todos:
             return
         print("This todo_id doesn't exist")
 
-    def update(self):
+    def update(self) -> None:
         todo_id = self._todo_id()
         if self._check_backslash(todo_id):
             return
@@ -66,7 +67,7 @@ class Todos:
             return
         print("This todo_id doesn't exist")
 
-    def toggle(self):
+    def toggle(self) -> None:
         todo_id = self._todo_id()
         if self._check_backslash(todo_id):
             return
@@ -78,7 +79,7 @@ class Todos:
             return
         print("This todo_id doesn't exist")
 
-    def _todo_id(self):
+    def _todo_id(self) -> int:
         """Helper function to get todo_id from user input"""
         return int(
             colored_input(
@@ -87,14 +88,14 @@ class Todos:
             )
         )
 
-    def show_todos(self):
+    def show_todos(self) -> None:
         if len(self.todos()) == 0:
             print("You have no todos")
             return
         for todo in self.todos():
             print(f"{todo['id']}. {todo['task']} - {todo['status']}")
 
-    def delete_all(self):
+    def delete_all(self) -> None:
         if len(self.todos()) == 0:
             print("You have no todos to delete")
             return
@@ -104,13 +105,13 @@ class Todos:
         self.db.delete_all_todos()
         print("All todos have been deleted")
 
-    def todos(self):
+    def todos(self) -> List[Dict[str, Union[int, str]]]:
         """Get all todos from the database"""
         return self.db.get_all_todos()
 
-    def help(self):
+    def help(self) -> None:
         helper(self.command_dict)
 
     @catch_errors
-    def run_todo_mode(self):
+    def run_todo_mode(self) -> None:
         class_runner(self.cmd_name, self.command_dict, TODO_COMMAND_COLOR)
