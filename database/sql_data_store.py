@@ -1,9 +1,6 @@
 from datetime import datetime
 import sqlite3
 import os
-from datetime import datetime
-import sqlite3
-import os
 from typing import List, Dict, Union
 
 
@@ -19,9 +16,7 @@ class SqlDataStore:
 
     def _migrate(self) -> None:
         """Run all the migration sql files in the migrations directory."""
-        migration_dir = os.path.join(
-            os.path.dirname(os.path.abspath(__file__)), "migrations"
-        )
+        migration_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "migrations")
         for filename in os.listdir(migration_dir):
             if filename.endswith(".sql"):
                 with open(os.path.join(migration_dir, filename), "r") as f:

@@ -1,6 +1,7 @@
 import subprocess
 import os
 from colorama import Fore
+from .base_controller import BaseController
 from database.sql_data_store import SqlDataStore
 from utils.error_handler import *
 from utils.helpers import *
@@ -8,11 +9,10 @@ from utils.helpers import *
 
 # Todo: Switch this class to deal with all directories, not just VSCode
 @catch_errors_in_class
-class VSCodeProjectOpener:
-    def __init__(self, db: SqlDataStore):
-        self.db = db
-        self.cmd_name = "project> "
-        self.command_dict = {
+class VSCodeProjectOpener(BaseController):
+    def __init__(self, db: SqlDataStore, cmd_name: str = "project> "):
+        super().__init__(cmd_name, db)
+        self.command_dict: dict[str, callable] = {
             "add": self.add_project,
             "open": self.open_project,
             "list": self.list_projects,
@@ -71,5 +71,5 @@ class VSCodeProjectOpener:
         self.db.delete_project_by_name(name) if self._check_is_project(name) else None
 
     @catch_errors
-    def run_project_mode(self) -> None:
+    def run(self) -> None:
         class_runner(self.cmd_name, self.command_dict, PROJECT_COMMAND_COLOR)

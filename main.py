@@ -1,3 +1,4 @@
+from controllers.base_controller import BaseController
 from utils.error_handler import *
 from utils.helpers import class_runner, helper
 from database.sql_data_store import SqlDataStore
@@ -9,17 +10,16 @@ from controllers.mood_manager import MyModeManager
 
 
 @catch_errors_in_class
-class main:
-    def __init__(self):
-        self.cmd_name: str = "bardala> "
-        self.db: SqlDataStore = SqlDataStore()
-        self.todos: Todos = Todos(self.db)
-        self.mood: MyModeManager = MyModeManager(self.db)
-        self.vsCodeProjectOpener: VSCodeProjectOpener = VSCodeProjectOpener(self.db)
+class main(BaseController):
+    def __init__(self, cmd_name: str, db: SqlDataStore):
+        super().__init__(cmd_name, db)
+        self.todos: Todos = Todos(self.db, "todo> ")
+        self.mood: MyModeManager = MyModeManager(self.db, "mood> ")
+        self.vsCodeProjectOpener: VSCodeProjectOpener = VSCodeProjectOpener(self.db, "project> ")
         self.command_dict: dict[str, callable] = {
-            "todo": self.todos.run_todo_mode,
-            "project": self.vsCodeProjectOpener.run_project_mode,
-            "mood": self.mood.run_mood_mode,
+            "todo": self.todos.run,
+            "project": self.vsCodeProjectOpener.run,
+            "mood": self.mood.run,
             "help": self.help,
         }
 
@@ -33,5 +33,6 @@ class main:
 
 if __name__ == "__main__":
     init(autoreset=True)
-    main = main()
+    db = SqlDataStore()
+    main = main("bardala> ", db)
     main.run()

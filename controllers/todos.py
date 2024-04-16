@@ -1,16 +1,16 @@
 from datetime import datetime
 from typing import List, Dict, Union
 from colorama import Fore
+from .base_controller import BaseController
 from database.sql_data_store import SqlDataStore
 from utils.error_handler import *
 from utils.helpers import *
 
 
 @catch_errors_in_class
-class Todos:
-    def __init__(self, db: SqlDataStore):
-        self.db = db
-        self.cmd_name = "todo> "
+class Todos(BaseController):
+    def __init__(self, db: SqlDataStore, cmd_name: str = "todo> "):
+        super().__init__(cmd_name, db)
         self.command_dict = {
             "add": self.add,
             "toggle": self.toggle,
@@ -113,5 +113,5 @@ class Todos:
         helper(self.command_dict)
 
     @catch_errors
-    def run_todo_mode(self) -> None:
+    def run(self) -> None:
         class_runner(self.cmd_name, self.command_dict, TODO_COMMAND_COLOR)

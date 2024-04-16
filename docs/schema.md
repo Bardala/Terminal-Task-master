@@ -9,8 +9,8 @@
 [Table: folders](#table-folders) | id | name |
   --- | --- | ---
 
-[Table: item_folders](#table-item_folders) | item_id | folder_id | PRIMARY KEY |
-  --- | --- | --- | ---
+[Table: item_folders](#table-item_folders) | item_id | folder_id |
+  --- | --- | --- 
   
 [Table: issues](#table-issues) | id | issue | created_at |
   --- | --- | --- | ---
