@@ -92,6 +92,7 @@ class VSCodeProjectOpener(BaseController):
         return self.command_prompt()
 
     # ?Be aware this function may not work well with linux subsystem on windows because of the way it handles the paths.
+    # !The program needs more testing with bash, there are some issues.
     def bash(self) -> None:
         """This function will handle the bash commands for the user."""
         command, item = self.cli("bash")
