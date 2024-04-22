@@ -7,6 +7,7 @@ from utils.error_handler import *
 from utils.helpers import *
 
 
+# Todo: Covert project with item, and use with the new db updates, folders and item_folders.
 # Todo: Switch this class to deal with all directories, not just VSCode
 @catch_errors_in_class
 class VSCodeProjectOpener(BaseController):
@@ -20,6 +21,9 @@ class VSCodeProjectOpener(BaseController):
             "show": self.list_projects,
             "delete": self.delete_project,
             "update": self.update_project_dir,
+            "ps": self.power_shell,
+            "cmd": self.command_prompt,
+            "bash": self.bash,
             "help": self.help,
         }
 
@@ -50,7 +54,6 @@ class VSCodeProjectOpener(BaseController):
             return False
         return True
 
-    # todo
     def update_project_dir(self) -> None:
         name = colored_input("Enter project name: ")
         new_directory = colored_input("Enter new directory: ")
@@ -69,6 +72,42 @@ class VSCodeProjectOpener(BaseController):
     def delete_project(self) -> None:
         name = colored_input("Enter project name: ")
         self.db.delete_project_by_name(name) if self._check_is_project(name) else None
+
+    def cli(self, cmd_name: str) -> tuple[str, str]:
+        """This function will handle the command line interface for the user."""
+        # this variable will be in this shape: code mine, ii table, ii book, ls dir...
+        user_input = colored_input(f"{cmd_name}> ", Fore.LIGHTCYAN_EX)
+        command = user_input.split(" ")[0]
+        item = user_input.split(" ")[1] if len(user_input.split(" ")) > 1 else None
+        db_item = self.db.get_project_by_name(item)
+        item = db_item[2] if db_item else item
+        return command, item
+
+    def command_prompt(self) -> None:
+        """This function will handle the command prompt for the user."""
+        command, item = self.cli("cmd")
+        if check_user_input(command):
+            return
+        subprocess.runt([command, item], shell=True)
+        return self.command_prompt()
+
+    # ?Be aware this function may not work well with linux subsystem on windows because of the way it handles the paths.
+    def bash(self) -> None:
+        """This function will handle the bash commands for the user."""
+        command, item = self.cli("bash")
+        if check_user_input(command):
+            return
+        subprocess.run(["bash", "-c", f"{command} {item}"])
+        return self.bash()
+
+    # Todo: Implement the PowerShell commands with all the features of the current program.
+    def power_shell(self) -> None:
+        """This function has the ability to implement PowerShell commands with current program features."""
+        command, item = self.cli("ps")
+        if check_user_input(command):
+            return
+        subprocess.run(["powershell", "-Command", f"{command} {item}"], shell=True)
+        return self.power_shell()
 
     @catch_errors
     def run(self) -> None:
