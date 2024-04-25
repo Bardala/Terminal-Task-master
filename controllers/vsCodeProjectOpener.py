@@ -24,6 +24,7 @@ class VSCodeProjectOpener(BaseController):
             "ps": self.power_shell,
             "cmd": self.command_prompt,
             "bash": self.bash,
+            "clear": self.clear_screen,
             "help": self.help,
         }
 
@@ -109,6 +110,9 @@ class VSCodeProjectOpener(BaseController):
             return
         subprocess.run(["powershell", "-Command", f"{command} {item}"], shell=True)
         return self.power_shell()
+
+    def clear_screen(self) -> None:
+        super().clear_screen()
 
     @catch_errors
     def run(self) -> None:

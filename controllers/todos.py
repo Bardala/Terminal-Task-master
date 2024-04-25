@@ -20,6 +20,7 @@ class Todos(BaseController):
             "delete": self.delete,
             "update": self.update,
             "delete_all": self.delete_all,
+            "clear": self.clear_screen,
             "help": self.help,
         }
 
@@ -135,6 +136,9 @@ class Todos(BaseController):
 
     def help(self) -> None:
         helper(self.command_dict)
+
+    def clear_screen(self) -> None:
+        super().clear_screen()
 
     def run(self) -> None:
         class_runner(self.cmd_name, self.command_dict, TODO_COMMAND_COLOR)

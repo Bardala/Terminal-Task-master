@@ -19,3 +19,8 @@ class BaseController(ABC):
     def run(self) -> None:
         """Run the controller."""
         pass
+
+    @abstractmethod
+    def clear_screen(self):
+        """Clear the screen."""
+        print("\033[H\033[J")

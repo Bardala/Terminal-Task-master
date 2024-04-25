@@ -13,6 +13,7 @@ class MyModeManager(BaseController):
         self.command_dict: dict[str, callable] = {
             "add": self.add,
             "mood": self.mood,
+            "clear": self.clear_screen,
             "help": self.help,
         }
 
@@ -66,6 +67,9 @@ class MyModeManager(BaseController):
                 return
             else:
                 print(">>> Invalid mood")
+
+    def clear_screen(self) -> None:
+        super().clear_screen()
 
     @catch_errors
     def run(self) -> None:

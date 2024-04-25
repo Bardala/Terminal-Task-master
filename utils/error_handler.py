@@ -14,6 +14,8 @@ def catch_errors(func):
                 exit()
             if str(e).startswith("UNIQUE constraint"):
                 print(Fore.RED + "This value already exists")
+            if str(e).startswith("invalid literal for int() with base 10"):
+                print(Fore.RED + "Please enter a number")
             else:
                 print(
                     Fore.RED + f"An error occurred",
