@@ -73,10 +73,13 @@ class SqlDataStore:
 
     def toggle_todo(self, id: int) -> None:
         self.c.execute("SELECT status FROM todos WHERE id=?", (id,))
-        status = self.c.fetchone()[0]
-        # status type in db in boolean
+        status = self.c.fetchone()[0]  # status type in db is boolean
         status = not status
         self.c.execute("UPDATE todos SET status=? WHERE id=?", (status, id))
+        self.conn.commit()
+
+    def set_done(self, id: int) -> None:
+        self.c.execute("UPDATE todos SET status=? WHERE id=?", (1, id))
         self.conn.commit()
 
     def get_last_todo_id(self) -> int:
@@ -88,7 +91,6 @@ class SqlDataStore:
         sql = "UPDATE todos SET task=? WHERE id=?"
         todo = self.c.execute(sql, (new_task, id))
         self.conn.commit()
-        print(f"todo from sql method: {todo}")
 
     def delete_todo_by_id(self, id: int) -> None:
         self.c.execute("DELETE FROM todos WHERE id=?", (id,))

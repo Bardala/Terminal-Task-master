@@ -15,7 +15,11 @@ def catch_errors(func):
             if str(e).startswith("UNIQUE constraint"):
                 print(Fore.RED + "This value already exists")
             else:
-                print(f"An error occurred: {e}")
+                print(
+                    Fore.RED + f"An error occurred",
+                    Fore.LIGHTRED_EX + f"\n{e} \n{func.__name__}",
+                    "failed",
+                )
 
     return wrapper
 
