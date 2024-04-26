@@ -1,14 +1,13 @@
 import subprocess
 
-from colorama import Fore
 from controllers.base_controller import BaseController
 from database.sql_data_store import SqlDataStore
-from utils.helpers import class_runner
 
 
 class WindowsSettings(BaseController):
-    def __init__(self, cmd_name: str, db: SqlDataStore):
-        super().__init__(cmd_name, db)
+
+    def __init__(self, cmd_name: str, db: SqlDataStore, cmd_color: str):
+        super().__init__(cmd_name, db, cmd_color)
         self.command_dict = {
             "light": self.turn_on_light_mode,
             "dark": self.turn_on_dark_mode,
@@ -45,14 +44,3 @@ class WindowsSettings(BaseController):
             shell=True,
         )
         print("Apps dark mode turned on")
-
-    def clear_screen(self):
-        super().clear_screen
-
-    def help(self):
-        print("light: turn on light mode")
-        print("dark: turn on dark mode")
-        print("help: show this help message")
-
-    def run(self):
-        class_runner(self.cmd_name, self.command_dict, Fore.LIGHTBLUE_EX)

@@ -1,22 +1,28 @@
 from controllers.base_controller import BaseController
 from utils.error_handler import *
-from utils.helpers import Goodbye, class_runner, helper
+from utils.helpers import (
+    MAIN_COMMAND_COLOR,
+    MOOD_COMMAND_COLOR,
+    PROJECT_COMMAND_COLOR,
+    SETTINGS_COMMAND_COLOR,
+    TODO_COMMAND_COLOR,
+    Goodbye,
+)
 from database.sql_data_store import SqlDataStore
-from colorama import Fore, init
+from colorama import init
 from controllers.todos import Todos
 from controllers.vsCodeProjectOpener import VSCodeProjectOpener
 from controllers.mood_manager import MyModeManager
 from controllers.windows_settings import WindowsSettings
 
 
-@catch_errors_in_class
-class main(BaseController):
-    def __init__(self, cmd_name: str, db: SqlDataStore):
-        super().__init__(cmd_name, db)
-        self.todos = Todos(self.db, "todo> ")
-        self.mood = MyModeManager(self.db, "mood> ")
-        self.vsCodeProjectOpener = VSCodeProjectOpener(self.db, "project> ")
-        self.windows_settings = WindowsSettings("settings> ", self.db)
+class Main(BaseController):
+    def __init__(self, cmd_name: str, db: SqlDataStore, cmd_color: str):
+        super().__init__(cmd_name, db, cmd_color)
+        self.todos = Todos("todo> ", self.db, TODO_COMMAND_COLOR)
+        self.mood = MyModeManager("mood> ", self.db, MOOD_COMMAND_COLOR)
+        self.vsCodeProjectOpener = VSCodeProjectOpener("project> ", self.db, PROJECT_COMMAND_COLOR)
+        self.windows_settings = WindowsSettings("settings> ", self.db, SETTINGS_COMMAND_COLOR)
         self.command_dict: dict[str, callable] = {
             "todo": self.todos.run,
             "project": self.vsCodeProjectOpener.run,
@@ -26,21 +32,11 @@ class main(BaseController):
             "help": self.help,
         }
 
-    def clear_screen(self) -> None:
-        super().clear_screen()
-
-    def help(self) -> None:
-        helper(self.command_dict)
-
-    @catch_errors
-    def run(self) -> None:
-        class_runner(self.cmd_name, self.command_dict, Fore.GREEN, self.db)
-
 
 if __name__ == "__main__":
     init(autoreset=True)
     db = SqlDataStore()
-    main = main("bardala> ", db)
+    main = Main("bardala> ", db, MAIN_COMMAND_COLOR)
     main.run()
     Goodbye()
     db.close()

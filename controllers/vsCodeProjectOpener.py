@@ -11,8 +11,9 @@ from utils.helpers import *
 # Todo: Switch this class to deal with all directories, not just VSCode
 @catch_errors_in_class
 class VSCodeProjectOpener(BaseController):
-    def __init__(self, db: SqlDataStore, cmd_name: str = "project> "):
-        super().__init__(cmd_name, db)
+
+    def __init__(self, cmd_name: str, db: SqlDataStore, cmd_color: str):
+        super().__init__(cmd_name, db, cmd_color)
         self.command_dict: dict[str, callable] = {
             "add": self.add_project,
             "open": self.open_project,
@@ -27,9 +28,6 @@ class VSCodeProjectOpener(BaseController):
             "clear": self.clear_screen,
             "help": self.help,
         }
-
-    def help(self) -> None:
-        helper(self.command_dict)
 
     def add_project(self) -> None:
         name = colored_input("Enter project name: ")
@@ -110,10 +108,3 @@ class VSCodeProjectOpener(BaseController):
             return
         subprocess.run(["powershell", "-Command", f"{command} {item}"], shell=True)
         return self.power_shell()
-
-    def clear_screen(self) -> None:
-        super().clear_screen()
-
-    @catch_errors
-    def run(self) -> None:
-        class_runner(self.cmd_name, self.command_dict, PROJECT_COMMAND_COLOR)

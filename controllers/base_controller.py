@@ -1,26 +1,27 @@
-from abc import ABC, abstractmethod
+from abc import ABC
 from database.sql_data_store import SqlDataStore
+from utils.error_handler import catch_errors_in_class
+from utils.helpers import class_runner, helper
 
 
-class BaseController(ABC):
+@catch_errors_in_class
+class BaseController:
     """Base class for all controllers. All controllers should inherit from this class."""
 
-    def __init__(self, cmd_name: str, db: SqlDataStore):
+    def __init__(self, cmd_name: str, db: SqlDataStore, cmd_color: str):
         self.cmd_name = cmd_name
         self.db = db
         self.command_dict: dict[str, callable] = {}
+        self.cmd_color = cmd_color
 
-    @abstractmethod
     def help(self) -> None:
         """Print available commands for the controller."""
-        pass
+        helper(self.command_dict)
 
-    @abstractmethod
     def run(self) -> None:
         """Run the controller."""
-        pass
+        class_runner(self.cmd_name, self.command_dict, self.cmd_color)
 
-    @abstractmethod
     def clear_screen(self):
         """Clear the screen."""
         print("\033[H\033[J")

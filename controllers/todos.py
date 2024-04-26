@@ -7,11 +7,9 @@ from utils.error_handler import *
 from utils.helpers import *
 
 
-# todo: add a method to delete more than one todo, not all
-@catch_errors_in_class
 class Todos(BaseController):
-    def __init__(self, db: SqlDataStore, cmd_name: str = "todo> "):
-        super().__init__(cmd_name, db)
+    def __init__(self, cmd_name: str, db: SqlDataStore, cmd_color: str):
+        super().__init__(cmd_name, db, cmd_color)
         self.command_dict = {
             "add": self.add,
             "toggle": self.toggle,
@@ -133,12 +131,3 @@ class Todos(BaseController):
     def todos(self) -> List[Dict[str, Union[int, str]]]:
         """Get all todos from the database"""
         return self.db.get_all_todos()
-
-    def help(self) -> None:
-        helper(self.command_dict)
-
-    def clear_screen(self) -> None:
-        super().clear_screen()
-
-    def run(self) -> None:
-        class_runner(self.cmd_name, self.command_dict, TODO_COMMAND_COLOR)

@@ -1,24 +1,19 @@
 from .base_controller import BaseController
 from database.sql_data_store import SqlDataStore
-from utils.error_handler import catch_errors
 from utils.helpers import *
 from database.sql_data_store import SqlDataStore
-from utils.error_handler import catch_errors
 from utils.helpers import *
 
 
 class MyModeManager(BaseController):
-    def __init__(self, db: SqlDataStore, cmd_name: str = "mood> "):
-        super().__init__(cmd_name, db)
+    def __init__(self, cmd_name: str, db: SqlDataStore, cmd_color: str):
+        super().__init__(cmd_name, db, cmd_color)
         self.command_dict: dict[str, callable] = {
             "add": self.add,
             "mood": self.mood,
             "clear": self.clear_screen,
             "help": self.help,
         }
-
-    def help(self) -> None:
-        helper(self.command_dict)
 
     def get_issues(self) -> list[dict[str, any]]:
         return self.db.get_issues()
@@ -67,10 +62,3 @@ class MyModeManager(BaseController):
                 return
             else:
                 print(">>> Invalid mood")
-
-    def clear_screen(self) -> None:
-        super().clear_screen()
-
-    @catch_errors
-    def run(self) -> None:
-        class_runner(self.cmd_name, self.command_dict, db=self.db)
