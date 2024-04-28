@@ -8,6 +8,8 @@ This project is well-conceived, promising a versatile CLI tool that could signif
 3. [Key Features](#key-features)
 4. [Technologies Used](#technologies-used)
 5. [Demo](#demo)
+6. [Installation](#installation)
+7. [Contributing Guidelines](#contributing-guidelines)
 
 
 ## Project Summary
@@ -64,3 +66,45 @@ The tool also provides a help command in each mode, which displays a list of all
 Moreover, the tool is designed to handle invalid commands gracefully, guiding the user to use the help command to get a list of valid commands.
 
 In summary, this tool serves as a comprehensive personal management system, offering a simple and intuitive command-line interface for managing projects and todos. It's a handy tool for anyone looking to organize their tasks and projects efficiently.
+
+## Installation
+
+To install the tool, follow these steps:
+
+1. Clone the repository to your local machine using the following command:
+
+```bash
+git clone https://github.com/Bardala/Terminal-Task-master
+```
+
+2. Navigate to the project directory:
+
+```bash
+cd terminal-task-manager
+```
+
+3. Run the following command to install the required dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+4. Run the following command to start the tool:
+
+```bash
+python main.py
+```
+
+5. Type help to see the list of available commands and start using the tool to manage your tasks and projects.
+
+
+## Contributing Guidelines
+
+1. Fork the repository
+2. Clone the forked repository
+3. Create a new branch for your changes
+4. Make your changes and commit them 
+5. Commit your changes
+6. Push your changes to your forked repository
+7. Create a pull request
+
