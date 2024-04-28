@@ -109,7 +109,7 @@ class Todos(BaseController):
 
     def _todo_id(self) -> int:
         """Helper function to get todo_id from user input"""
-        return int(colored_input("todo_id> ", TODO_ID_COLOR))
+        return int(colored_input("todo_id> ", COLOR.TODO_COMMAND.value))
 
     def show_todos(self) -> None:
         if len(self.todos()) == 0:

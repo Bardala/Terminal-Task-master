@@ -1,19 +1,20 @@
+from enum import Enum
 import sys
 from colorama import Fore, init
 from utils.error_handler import catch_errors
 
-# * Constants
 # Initialize colorama
 init(autoreset=True)
 
-# * Constants
-MAIN_COMMAND_COLOR: str = Fore.GREEN
-TODO_COMMAND_COLOR: str = Fore.BLUE
-SETTINGS_COMMAND_COLOR: str = Fore.LIGHTBLUE_EX
-PROJECT_COMMAND_COLOR: str = Fore.YELLOW
-MOOD_COMMAND_COLOR: str = Fore.MAGENTA
-INPUT_COLOR: str = Fore.CYAN
-TODO_ID_COLOR: str = Fore.MAGENTA
+
+class COLOR(Enum):
+    MAIN_COMMAND = Fore.GREEN
+    TODO_COMMAND = Fore.BLUE
+    SETTINGS_COMMAND = Fore.LIGHTBLUE_EX
+    PROJECT_COMMAND = Fore.YELLOW
+    MOOD_COMMAND = Fore.MAGENTA
+    INPUT = Fore.CYAN
+    TODO_ID = Fore.MAGENTA
 
 
 @catch_errors
