@@ -116,7 +116,7 @@ class Todos(BaseController):
             print("You have no todos")
             return
         for todo in self.todos():
-            print(f"{todo['id']}. {todo['task']} - {todo['status']}")
+            print(f"{todo['id']}. {todo['task']} - {'✅' if todo['status'] else '❌' }")
 
     def delete_all(self) -> None:
         if len(self.todos()) == 0:

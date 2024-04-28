@@ -1,4 +1,3 @@
-from abc import ABC
 from database.sql_data_store import SqlDataStore
 from utils.error_handler import catch_errors_in_class
 from utils.helpers import class_runner, helper
